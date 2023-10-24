@@ -3,6 +3,7 @@ package util
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 )
 
 func createDay(day int) {
@@ -20,8 +21,28 @@ func createDay(day int) {
 	fmt.Println("File written successfully")
 }
 
-func Init() {
-	for i := 1; i <= 30; i++ {
-		createDay(i)
+func updateMain(day int) {
+	mainFilePath := "main.go"
+	mainContents, errRead := ioutil.ReadFile(mainFilePath)
+
+	if errRead != nil {
+		fmt.Println("Error reading file:", errRead)
+		return
 	}
+
+	newMainContents := strings.Replace(string(mainContents), "//insert here", fmt.Sprintf("\"day%d\": days.Day%d\n\t//insert here", day, day), 1)
+
+	errWrite := ioutil.WriteFile(mainFilePath, []byte(newMainContents), 0644)
+
+	if errWrite != nil {
+		fmt.Println("Error writing file:", errWrite)
+		return
+	}
+
+	fmt.Println("File written successfully")
+}
+
+func Init(day int) {
+	createDay(day)
+	updateMain(day)
 }
