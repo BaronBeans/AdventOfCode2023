@@ -22,6 +22,7 @@ func main() {
 	// main logic
 	if *init == true {
 		util.Init(*day)
+		return
 	} else {
 		runOne(day)
 	}
@@ -33,6 +34,6 @@ func runOne(day *int) {
 }
 
 var funcMap = map[string]interface{}{
-	"day1": days.Day1
+	"day1": days.Day1,
 	//insert here
 }
