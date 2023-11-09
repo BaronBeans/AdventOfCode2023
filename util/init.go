@@ -3,18 +3,22 @@ package util
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
+	"text/template"
 )
 
-func createDay(day int) {
+func createDayFromTemplate(day int) {
 	dayFilePath := fmt.Sprintf("days/day%d.go", day)
-	dayFileContents := fmt.Sprintf("package days\n\nimport \"fmt\"\n\nfunc day%dPart1() {\n\tfmt.Println(\"day %d part 1\")\n}\n\nfunc day%dPart2() {\n\tfmt.Println(\"day %d part 2\")\n}\n\nfunc Day%d() {\n\tday%dPart1()\n\tday%dPart2()\n}", day, day, day, day, day, day, day)
-
-	err := ioutil.WriteFile(dayFilePath, []byte(dayFileContents), 0644)
-
+	file, err := os.Create(dayFilePath)
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+	}
+	defer file.Close()
+	tmplString := template.Must(template.ParseFiles("day.template"))
+	err = tmplString.Execute(file, day)
 	if err != nil {
 		fmt.Println("Error writing file:", err)
-		return
 	}
 }
 
@@ -38,6 +42,7 @@ func updateMain(day int) {
 }
 
 func Init(day int) {
-	createDay(day)
+	fmt.Println(day)
+	createDayFromTemplate(day)
 	updateMain(day)
 }

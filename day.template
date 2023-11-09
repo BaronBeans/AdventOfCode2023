@@ -1,0 +1,16 @@
+package days
+
+import "fmt"
+
+func day{{.}}Part1() {
+	fmt.Println("day {{.}} part 1")
+}
+
+func day{{.}}Part2() {
+	fmt.Println("day {{.}} part 2")
+}
+
+func Day{{.}}() {
+	day{{.}}Part1()
+	day{{.}}Part2()
+}
