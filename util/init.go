@@ -3,6 +3,7 @@ package util
 import (
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"strings"
 	"text/template"
@@ -41,8 +42,49 @@ func updateMain(day int) {
 	}
 }
 
+func getInputFile(day int) {
+	dayFilePath := fmt.Sprintf("days/day%d.input", day)
+	file, err := os.Create(dayFilePath)
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+	}
+	defer file.Close()
+
+	client := &http.Client{}
+	url := fmt.Sprintf("https://adventofcode.com/2022/day/%d/input", day)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Println("Error creating request", err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	cookieValue := os.Getenv("AOC_TOKEN")
+	cookie := &http.Cookie{
+		Name:  "session",
+		Value: cookieValue,
+	}
+	req.AddCookie(cookie)
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Error sending request", err)
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error reading response", err)
+		return
+	}
+
+	errWrite := ioutil.WriteFile(dayFilePath, []byte(body), 0644)
+	if errWrite != nil {
+		fmt.Println("Error writing file:", errWrite)
+		return
+	}
+}
+
 func Init(day int) {
 	fmt.Println(day)
 	createDayFromTemplate(day)
 	updateMain(day)
+	getInputFile(day)
 }
