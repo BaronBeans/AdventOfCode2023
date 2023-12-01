@@ -15,15 +15,16 @@ func getInput() string {
 	return string(file)
 }
 
-func day{{.}}Part1() {
+func day{{.}}Part1(input string) {
 	fmt.Println("day {{.}} part 1")
 }
 
-func day{{.}}Part2() {
+func day{{.}}Part2(input string) {
 	fmt.Println("day {{.}} part 2")
 }
 
 func Day{{.}}() {
+	input := getInput()
 	day{{.}}Part1()
 	day{{.}}Part2()
 }
