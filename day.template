@@ -3,16 +3,17 @@ package days
 import (
 	"fmt"
 	"io/ioutil"
+	"strings"
 )
 
-func getInput() string {
+func getInputDay{{.}}() string {
 	filePath := "days/day{{.}}.input"
 	file, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file", err)
 	}
 
-	return string(file)
+	return strings.TrimRight(string(file), "\n")
 }
 
 func day{{.}}Part1(input string) {
@@ -24,7 +25,7 @@ func day{{.}}Part2(input string) {
 }
 
 func Day{{.}}() {
-	input := getInput()
+	input := getInputDay{{.}}()
 	day{{.}}Part1()
 	day{{.}}Part2()
 }

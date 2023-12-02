@@ -9,20 +9,20 @@ import (
 	"unicode"
 )
 
-func getInput() string {
+func getInputDay1() string {
 	filePath := "days/day1.input"
 	file, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file", err)
 	}
 
-	return string(file)
+	return strings.TrimRight(string(file), "\n")
 }
 
 func day1Part1(input string) {
 	allNumbers := []int{}
 	output := 0
-	lines := strings.Split(strings.TrimRight(input, "\n"), "\n")
+	lines := strings.Split(input, "\n")
 	for _, line := range lines {
 		if len(line) == 0 {
 			break
@@ -91,7 +91,7 @@ func day1Part2(input string) {
 }
 
 func Day1() {
-	input := getInput()
+	input := getInputDay1()
 	day1Part1(input)
 	day1Part2(input)
 }
