@@ -26,6 +26,6 @@ func day{{.}}Part2(input string) {
 
 func Day{{.}}() {
 	input := getInputDay{{.}}()
-	day{{.}}Part1()
-	day{{.}}Part2()
+	day{{.}}Part1(input)
+	day{{.}}Part2(input)
 }
