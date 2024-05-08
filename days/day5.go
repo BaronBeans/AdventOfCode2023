@@ -2,15 +2,15 @@ package days
 
 import (
 	"fmt"
-	"io/ioutil"
 	"math"
+	"os"
 	"strconv"
 	"strings"
 )
 
 func getInputDay5() string {
 	filePath := "days/day5.input"
-	file, err := ioutil.ReadFile(filePath)
+	file, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file", err)
 	}

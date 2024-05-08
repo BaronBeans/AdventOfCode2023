@@ -2,7 +2,7 @@ package days
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -252,7 +252,7 @@ func parseCardsPart2(input string) []Hand {
 
 func getInputDay7() string {
 	filePath := "days/day7.input"
-	file, err := ioutil.ReadFile(filePath)
+	file, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file", err)
 	}

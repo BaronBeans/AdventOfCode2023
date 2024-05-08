@@ -2,7 +2,7 @@ package days
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -34,7 +34,7 @@ func parseInstructions(input string) map[string]Values {
 
 func getInputDay8() string {
 	filePath := "days/day8.input"
-	file, err := ioutil.ReadFile(filePath)
+	file, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file", err)
 	}

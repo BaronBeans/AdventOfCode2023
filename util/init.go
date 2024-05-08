@@ -2,7 +2,7 @@ package util
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -25,7 +25,7 @@ func createDayFromTemplate(day int) {
 
 func updateMain(day int) {
 	mainFilePath := "main.go"
-	mainContents, errRead := ioutil.ReadFile(mainFilePath)
+	mainContents, errRead := os.ReadFile(mainFilePath)
 
 	if errRead != nil {
 		fmt.Println("Error reading file:", errRead)
@@ -34,7 +34,7 @@ func updateMain(day int) {
 
 	newMainContents := strings.Replace(string(mainContents), "//insert here", fmt.Sprintf("\"day%d\": days.Day%d,\n\t//insert here", day, day), 1)
 
-	errWrite := ioutil.WriteFile(mainFilePath, []byte(newMainContents), 0644)
+	errWrite := os.WriteFile(mainFilePath, []byte(newMainContents), 0644)
 
 	if errWrite != nil {
 		fmt.Println("Error writing file:", errWrite)
@@ -69,13 +69,13 @@ func getInputFile(day int) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading response", err)
 		return
 	}
 
-	errWrite := ioutil.WriteFile(dayFilePath, []byte(body), 0644)
+	errWrite := os.WriteFile(dayFilePath, []byte(body), 0644)
 	if errWrite != nil {
 		fmt.Println("Error writing file:", errWrite)
 		return

@@ -2,7 +2,7 @@ package days
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 	"unicode"
@@ -10,7 +10,7 @@ import (
 
 func getInputDay3() string {
 	filePath := "days/day3.input"
-	file, err := ioutil.ReadFile(filePath)
+	file, err := os.ReadFile(filePath)
 	if err != nil {
 		fmt.Println("Error reading file", err)
 	}
